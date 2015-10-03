@@ -29,7 +29,7 @@ robustness_threshold <- function(mod, which = 2) {
   }
   
   rho_yx <- get_pcor(
-    y = model.response(y = model.frame(mod)), 
+    y = model.response(model.frame(mod)), 
     x = model.matrix(mod)[,which], 
     Z = model.matrix(mod)[,-which, drop = FALSE], addIntercept = FALSE
   )
