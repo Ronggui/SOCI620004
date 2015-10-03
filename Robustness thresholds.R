@@ -28,11 +28,11 @@ robustness_threshold <- function(mod, which = 2) {
     cor(residuals(lm.fit(Z, y)), residuals(lm.fit(Z, x)))
   }
   
-  rho_yx <-
-    get_pcor(
-      y = model.response(model.frame(mod)), x = model.matrix(mod)[,which], model.matrix(mod)[,-which, drop =
-                                                                                               FALSE], addIntercept = FALSE
-    )
+  rho_yx <- get_pcor(
+    y = model.response(y = model.frame(mod)), 
+    x = model.matrix(mod)[,which], 
+    Z = model.matrix(mod)[,-which, drop = FALSE], addIntercept = FALSE
+  )
   
   beta <- coef(mod)[which]
   sd_beta <- sqrt(diag(vcov(mod)))[which]
