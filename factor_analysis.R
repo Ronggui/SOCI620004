@@ -16,3 +16,11 @@ head(fam2$scores)
 bg2$F1 <- fam2$scores[,1]
 bg2$F2 <- fam2$scores[,2]
 ## You can use F1 and F2 in the ensuing analyses
+
+## use the method of "principal axes"
+fam2pa <- fa(bg2[,c("bg2cost1","bg2cost2","bg2cost3","bg2cost4","bg2cost5","bg2cost6")], nfactors=2, rotate="varimax", fm="pa")
+bg2$F1PA <- fam2pa$scores[,1]
+bg2$F2PA <- fam2pa$scores[,2]
+
+## use the method of "minres"
+fam2min <- fa(bg2[,c("bg2cost1","bg2cost2","bg2cost3","bg2cost4","bg2cost5","bg2cost6")], nfactors=2, rotate="varimax", fm="minres")
