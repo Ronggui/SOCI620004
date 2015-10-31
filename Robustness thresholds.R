@@ -1,7 +1,7 @@
 robustness_threshold <- function(mod, which = 2) {
   ## Gangl2013 -- Partial Identification and Sensitivity Analysis, Figure 18.2
   
-  rho_xz <- seq(-1,1, by = 0.01)
+  rho_xz <- seq(-1,1, by = 0.001)
   
   ## bounds of rho_yx
   rho_yz_plus <- function(rho_xz) {
@@ -45,7 +45,17 @@ robustness_threshold <- function(mod, which = 2) {
     xlab = "rho(x,z)", ylab = "rho(y,z)"
   )
   lines(rho_xz, rho_yz_minus(rho_xz))
-  lines(rho_xz, rho_yz_threshold(rho_xz), col = "red")
+  
+  rho_xz_neg <- seq(-1, 0, by=0.001)
+  wthreshold_neg <- rho_yz_threshold(rho_xz_neg)
+  widx_neg <- (wthreshold_neg >= rho_yz_minus(rho_xz_neg)) & (wthreshold_neg <= rho_yz_plus(rho_xz_neg))
+  lines(rho_xz_neg[widx_neg], wthreshold_neg[widx_neg], col = "red")
+  
+  rho_xz_pos <- seq(0, 1, by=0.001)
+  wthreshold_pos <- rho_yz_threshold(rho_xz_pos)
+  widx_pos <- (wthreshold_pos >= rho_yz_minus(rho_xz_pos)) & (wthreshold_pos <= rho_yz_plus(rho_xz_pos))
+  lines(rho_xz_pos[widx_pos], wthreshold_pos[widx_pos], col = "red")
+  
   ## add reference lines
   abline(v = seq(-1,1,by = 0.1), lty = 2, col = "grey")
   abline(h = seq(-1,1,by = 0.1), lty = 2, col = "grey")
