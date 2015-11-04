@@ -52,3 +52,13 @@ pf(T^2, df1 = 1, df2 = DF, lower = FALSE) ## use F test / wald test
 linearHypothesis(mod.duncan, "1 * income - 1 * education = 0")
 ## H0: coef_income = coef_edu = 0
 linearHypothesis(mod.duncan, "income = education ")
+
+## prediction interval
+m <- lm(prestige ~ income,data = Prestige)
+ci = predict(m, interval = "confidence")
+pi = predict(m, interval = "prediction")
+
+matplot(Prestige$income, cbind(ci, pi[, -1]), 
+         lty=c(1,2,2,3,3), type="l", 
+         ylab="predicted prestige", xlab="income",
+        main="comparison of confidence interval and prediction interval")
