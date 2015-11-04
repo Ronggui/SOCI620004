@@ -10,6 +10,13 @@ scatterplot(nforward~fans, data=wb, log="xy")
 srm1 <- lm(log(nforward)~log(fans), data=wb)
 summary(srm1)
 
+## simulation to show the consequences of adding too much IVs
+n = 50
+K = 10
+y = rnorm(n=n,mean=50,sd=10)
+for (i in 1:K){assign(sprintf("x%s", i), rnorm(n=n, mean=10, sd=5))}
+summary(lm(as.formula(sprintf("y~%s", paste("x",1:K, sep="", collapse="+")))))
+
 ## Joint test of coef
 ## create a categorical variable of zhuce (1; 2; 3)
 wb$zhuce <- 1
