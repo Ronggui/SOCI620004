@@ -1,3 +1,7 @@
+## read xlsx file
+library(openxlsx)
+dat <- read.xlsx("path/to/xlsx/file.xlsx")
+
 ## read Stata 5-12 data
 library(foreign)
 dat <- read.dta("path/to/data/file.dta")
