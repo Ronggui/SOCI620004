@@ -72,3 +72,11 @@ local den = (`e(rss)' + `e(mss)')*(1-`e(r2)')
 display sqrt( `sigmahat2' / `den' )
 ** std. err of income, please check
 reg prestige income education
+
+** Statistical tests
+use Prestige.dta
+reg  prestige education income women
+test  income education
+test  income-education=0
+test  income+education=0
+test  income women education
