@@ -10,3 +10,6 @@ dat <- read.dta("path/to/data/file.dta")
 install.packages("readstata13") ## need to install first
 library(readstata13)
 dat <- read.dta13("path/to/data/file.dta")
+
+## export to Stata
+write.dta(dat, file="path/to/data/file.dta")
