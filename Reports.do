@@ -1,6 +1,7 @@
 set more off
 
 * need to install it first
+* findit esttab
 eststo clear
 
 reg prestige income
