@@ -14,6 +14,17 @@ multiplot(m0, m1)
 library(effects)
 effs <- allEffects(m1)
 plot(effs, "income:type")
+## change the title
+plot(effs, "income:type", main ="interaction effect")
+## change xlab
+plot(effs, "income:type", main ="interaction effect", xlab = "This is income")
+plot(effs, "income:type", main ="interaction effect", xlab = "This is income", ylab="Occupational Prestige")
+## fine tuning
+foo <- plot(effs, "income:type", main ="interaction effect", xlab = "This is income", ylab="Occupational Prestige")
+library(lattice)
+dimnames(foo)$type <- c("蓝领", "专业人士", "白领")
+foo$strip <- function(...) strip.default(..., strip.names = c(FALSE, TRUE))
+print(foo)
 
 ## compare coefficients in table-style
 compareCoefs(m0, m1)
