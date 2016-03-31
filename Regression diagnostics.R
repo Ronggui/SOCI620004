@@ -17,6 +17,8 @@ all.equal(hvs, hatvalues(m))
 
 all.equal( mean(hatvalues(m)), m$rank / (m$df.residual + m$rank) )
 
+hatvalues(m)
+
 ## multimodal residuals and potential causes (e.g. missing categorical variable)
 x <- rnorm(n = 300, mean = 50, sd = 5)
 g <- rbinom(n = 300, prob = 0.4, size = 1)
@@ -30,14 +32,32 @@ box()
 ## normal distribution of residuals
 qqPlot( rstudent( lm(interlocks ~ sector + assets, data = Ornstein) ) )
 
+m1 <-  lm(interlocks ~ sector + assets, data = Ornstein)
+rst <- rstudent(m1)
+qqPlot(rst)
+
 set.seed(5000)
 x <- rnorm(n = 1000, mean = 80, sd=6)
 z <- rnorm(n = 1000, mean = 10, sd=3)
 y <- 2 + 3 * log10(x) + 0.7 * z + rnorm(n = 1000)
 # x <- x - 70 ; y <- 2 + 3*x+5*x^2+0.7*z + rnorm(n=1000)
 m <- lm(y~x+z)
+
 crPlots(m)
+crPlot(m, "income")
+
+avPlots(m)
+avPlot(m, "income")
+
+plot(m)
+
+# Non-Constant Error Variance / heteroskedasticity
 ncvTest(m)
+library(lmtest)
+bptest(m)
+## robust SE
+coeftest(m, vcov=hccm)
+coeftest(m, vcov=hccm(m))
 
 ## test lack of fit/linearity
 Vocab <- subset(Vocab, year==1989)

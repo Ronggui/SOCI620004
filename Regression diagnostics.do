@@ -6,6 +6,7 @@ regress prestige income education
 * standardised coefficents
 regress prestige income education, beta
 
+regress prestige income
 ** outliers, influential obs
 ** you can choose whatever variable name for the first argument
 predict fitted, xb
@@ -71,6 +72,8 @@ regress prestige income income_n
 drop income_n 
 gen income_n = 0.9*income + rnormal()
 * vif to detect multicollearity
+cor prestige income education
+
 regress prestige income education
 estat vif
 
