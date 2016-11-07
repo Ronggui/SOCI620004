@@ -2,13 +2,18 @@ example(anscombe)
 
 library(car)
 ## barplot
-barplot(table(Prestige$type),main="Bar Plot")
+barplot(table(Prestige$type), main="Bar Plot", 
+        ylab="Freq", xlab="Occupation", 
+        col=c("blue", "red", "green"))
 box()
 
 ## histogram
+hist(Prestige$income)
+
 par(mfrow=c(2,1))
 hist(Prestige$income, breaks=c(seq(0,30000,1000)), main="start at 0") ##figure 3.2a
 hist(Prestige$income, breaks=c(seq(500,30000,1000)), main="start at 500") ##figure 3.2b
+
 library(MASS)
 truehist(Prestige$income, nbins="FD")
 
@@ -33,29 +38,35 @@ lines(density(Prestige$income))
 
 ## generate a random variable
 set.seed(1000)
-plot.ecdf(rnorm(80),verticals=T,cex=0.5, main="ECDF of a normal distribution sample")
+plot.ecdf(rnorm(80),verticals=T, cex=0.5, main="ECDF of a normal distribution sample")
 ## 不光滑
 curve(pnorm, add=T, col="red")
 
 ## qq plot
 set.seed(100)
-qqPlot(rnorm(100, mean=50, sd=10)) 
+x = rnorm(100, mean=50, sd=10)
+qqPlot(x)
 
 ## qqplots of random variables governed by different distributions
 set.seed(100)
 qqPlot(rchisq(100, df=2))
 ## shape of distributions
-x=seq(-4,4,by=0.01)
-y1=dnorm(x)
-y2=dchisq(x,df=2)
+x = seq(-4,4,by=0.01)
+y1 = dnorm(x)
+y2 = dchisq(x, df=2)
+
 plot(y2~x, type="l")
 lines(x, y1, col="red")
-legend(2, 0.45, c("chisq","norm"), col=c("black","red"), lty=1)
+legend(2, 0.45, c("chisq","norm"),
+       col=c("black","red"), lty=1)
 
 set.seed(50)
 qqPlot(rnorm(500, mean=30, sd=10), distribution="t", df=3)
+
 set.seed(17)
-qqPlot(rt(100, df=2))
+y = rt(100, df=2)
+qqPlot(y)
+
 x=seq(-4,4,by=0.01)
 y1=dnorm(x)
 y2=dt(x,df=2)
@@ -69,27 +80,38 @@ Boxplot(income ~ type, data=Prestige, main="Comparison of Income")
 Boxplot(interlocks~nation,Ornstein)
 
 ## barplot of frequency
-data(Titanic,package="effects")
-barplot(with(Titanic,table(survived,passengerClass)),beside=T,legend=T, xlab="Class", ylab="Frequency")
+data(TitanicSurvival,package="effects")
+barplot(with(TitanicSurvival,table(survived,passengerClass)),beside=TRUE,legend=TRUE, xlab="Class", ylab="Frequency")
 box()
 
 ## scatter plot
 with(Vocab, plot(vocabulary, education))
+plot(Vocab$vocabulary, Vocab$education)
+
 ## add small randomness to the variables
 with(Vocab, plot(jitter(vocabulary, amount=0.5), jitter(education, amount=0.5)))
 
-scatterplot(prestige~income, data=Prestige)
+scatterplot(prestige ~ income, data=Prestige)
+
 scatterplot(infant.mortality~gdp, data=UN)
 ## transformation of variables before plotting
+
 scatterplot(log(infant.mortality)~log(gdp), data=UN)
 
+scatterplot(infant.mortality~I(gdp^2), data=UN)
+
+
 ## scatter plot by groups
-scatterplot(prestige~income|type, data=Prestige)
+scatterplot(prestige ~ income | type, data = Prestige)
+
 ## matrix of scatter plots
 scatterplotMatrix(~ income + education + prestige, transform=FALSE, data=Duncan, id.n=3)
 
 ## 3-d scatter plots
 library(rgl)
-with(Prestige,plot3d(income, education, prestige))
+plot3d(income, education, prestige)
+plot3d(Prestige$income, Prestige$education, Prestige$prestige)
+with(Prestige, plot3d(income, education, prestige))
 # rgl.snapshot("plot3d.png")
 
+plot(Prestige$income, Prestige$prestige)

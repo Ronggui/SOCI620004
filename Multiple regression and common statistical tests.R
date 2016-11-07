@@ -3,7 +3,7 @@ library(car)
 load("HuangGui2014-SOCI620004.RData")
 
 ## Visualize the data before modelling
-scatterplot(nforward~fans, data=wb
+scatterplot(nforward~fans, data=wb)
 scatterplot(nforward~fans, data=wb, log="xy")
 
 ## fit simple regression model and assign it to srm1
@@ -39,6 +39,10 @@ linearHypothesis(mod, c("weizhuce=0", "gongshang=0"))
 
 ## use Prestige example to demonstrate the calculation
 mod.duncan <- lm(prestige ~ income + education, data=Duncan)
+summary(mod.duncan)
+linearHypothesis(mod.duncan, "income - education=0")
+linearHypothesis(mod.duncan, c("income = 0", "education=0"))
+
 vcov(mod.duncan)
 coef(mod.duncan)
 ## H0: coef_income == coef_edu
@@ -53,6 +57,9 @@ linearHypothesis(mod.duncan, "1 * income - 1 * education = 0")
 ## H0: coef_income = coef_edu = 0
 linearHypothesis(mod.duncan, "income = education ")
 
+mod.duncan1 <- lm(prestige ~ income + education + type*education, data=Duncan)
+anova(mod.duncan1, mod.duncan) ## compare two models
+
 ## prediction interval
 m <- lm(prestige ~ income,data = Prestige)
 ci = predict(m, interval = "confidence")
@@ -60,5 +67,31 @@ pi = predict(m, interval = "prediction")
 
 matplot(Prestige$income, cbind(ci, pi[, -1]), 
          lty=c(1,2,2,3,3), type="l", 
-         ylab="predicted prestige", xlab="income",
+         ylab="predicted prestige", 
+        xlab="income",
         main="comparison of confidence interval and prediction interval")
+
+residuals(m)
+
+#### model specification
+
+## a mutiple ols model
+summary( lm(prestige ~ type + income + education, data = Duncan) )
+## examine the variabel of type
+levels(Duncan$type)
+## change the reference group
+Duncan$typeNew = relevel(Duncan$type, "prof")
+summary( lm(prestige ~ typeNew + income + education, data = Duncan) )
+
+## interaction effects
+summary( lm(prestige ~ type*income + education, data = Duncan) )
+
+summary( lm(prestige ~ type + income + type:income + education, data = Duncan) )
+
+## transformation of IVs / DV
+summary( lm(log(prestige) ~ type + income + education, data = Duncan) )
+
+summary( lm(prestige ~ type + log(income) + education, data = Duncan) )
+
+summary( lm(prestige ~ type + income + I(income^2) + education, data = Duncan) )
+

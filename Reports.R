@@ -22,11 +22,12 @@ plot(effs, "income:type", main ="Interaction effect")
 ## change xlab
 plot(effs, "income:type", main ="interaction effect", xlab = "This is income")
 plot(effs, "income:type", main ="interaction effect", xlab = "This is income", ylab="Occupational Prestige")
+
 ## fine tuning
 foo <- plot(effs, "income:type", main ="interaction effect", xlab = "This is income", ylab="Occupational Prestige")
 library(lattice)
 dimnames(foo)
-dimnames(foo)$type <- c("蓝领", "专业人士", "白领")
+dimnames(foo)$type <- c("钃濋", "涓撲笟", "鐧介")
 dimnames(foo)
 foo$strip <- function(...) strip.default(..., strip.names = c(FALSE, TRUE))
 print(foo)
