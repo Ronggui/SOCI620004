@@ -2,7 +2,7 @@ library(car)
 m0 <- lm(prestige ~ income + education + type, Prestige)
 m1 <- lm(prestige ~ income*type + education, Prestige)
 summary(m1)
-Anova(m0, m1)
+anova(m0, m1)
 
 ## coefficent plots for presentation
 library(coefplot)

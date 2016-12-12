@@ -5,6 +5,10 @@ Prestige10 <- Prestige[1:10,]
 m <- lm(prestige ~ income + women, data = Prestige10)
 hatvalues(m)
 
+## change the size of symbols by cex
+plot(fitted(m), rstudent(m), cex = hatvalues(m) * 3)
+plot(fitted(m), rstudent(m), cex = cooks.distance(m) * 2)
+
 ## demonstrate the calculation of hatvalues
 X <- model.matrix(m)
 H <- X %*% solve(crossprod(X)) %*% t(X)
@@ -28,9 +32,11 @@ hist( residuals(lm(y ~ x)) )
 box()
 hist(residuals(lm(y ~ x + g)))
 box()
+qqPlot(rstudent(lm(y ~ x + g)))
 
 ## normal distribution of residuals
-qqPlot( rstudent( lm(interlocks ~ sector + assets, data = Ornstein) ) )
+m = lm(interlocks ~ sector + assets, data = Ornstein)
+qqPlot( rstudent( m ) )
 
 m1 <-  lm(interlocks ~ sector + assets, data = Ornstein)
 rst <- rstudent(m1)
@@ -43,6 +49,7 @@ y <- 2 + 3 * log10(x) + 0.7 * z + rnorm(n = 1000)
 # x <- x - 70 ; y <- 2 + 3*x+5*x^2+0.7*z + rnorm(n=1000)
 m <- lm(y~x+z)
 
+m <- lm(prestige ~ income + education, data = Prestige)
 crPlots(m)
 crPlot(m, "income")
 
@@ -50,6 +57,16 @@ avPlots(m)
 avPlot(m, "income")
 
 plot(m)
+
+residuals(m)
+rstudent(m)
+rstandard(m)
+
+cooks.distance(m)
+
+dfbeta(m)
+dfbetas(m)
+dffits(m)
 
 # Non-Constant Error Variance / heteroskedasticity
 ncvTest(m)
@@ -63,8 +80,21 @@ coeftest(m, vcov=hccm(m))
 Vocab <- subset(Vocab, year==1989)
 m1 <- lm(vocabulary ~ education, data=Vocab)
 m2 <- lm(vocabulary ~ factor(education), data=Vocab)
-Anova(m1)
-Anova(m2)
 anova(m1,m2)
 
+
 vif(m)
+
+HH::vif(m)
+
+perturb::colldiag(m) ## condition number
+
+## explain differences between Type-II  and Type-III test
+m1 <- lm(prestige ~ income + type, data = Prestige)
+Anova(m1, type="II") ## principle of marginality
+
+m2 <- lm(prestige ~ income*type, data = Prestige)
+Anova(m2, type="II") ## principle of marginality
+Anova(m2, type="III") ## violate principle of marginality
+
+## Anova not anova
