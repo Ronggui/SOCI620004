@@ -34,7 +34,9 @@ summary(iv2, diagnostics = TRUE)
 
 # Diagnostic tests:
 #   df1 df2 statistic p-value    
-#   Weak instruments   2  44   244.734  <2e-16 *** ## significance indicates that IVs are not weak
-#   Wu-Hausman         1  44     3.068  0.0868 .   ## significance indicates endogeneity 
-#   Sargan             1  NA     0.333  0.5641     ## not significant, then IVs are not correlated with errors
-
+#   Weak instruments   2  44   244.734  <2e-16 *** 
+## significance indicates that IVs are not weak
+#   Wu-Hausman         1  44     3.068  0.0868 .   
+## significance indicates endogeneity 
+#   Sargan             1  NA     0.333  0.5641     
+## not significant, then IVs are not correlated with errors
