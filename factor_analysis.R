@@ -25,3 +25,9 @@ bg2$F2PA <- fam2pa$scores[,2]
 
 ## use the method of "minres"
 fam2min <- fa(bg2[,c("bg2cost1","bg2cost2","bg2cost3","bg2cost4","bg2cost5","bg2cost6")], nfactors=2, rotate="varimax", fm="minres")
+
+
+library(ltm)
+cronbach.alpha(bg2[,c("bg2cost1","bg2cost2","bg2cost3","bg2cost4","bg2cost5","bg2cost6")])
+cronbach.alpha(bg2[,c("bg2cost1","bg2cost2","bg2cost3","bg2cost4","bg2cost5","bg2cost6")], standardized = TRUE)
+cronbach.alpha(bg2[,c("bg2cost1", "bg2cost5","bg2cost6")])

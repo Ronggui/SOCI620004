@@ -1,6 +1,8 @@
 ## read xlsx file
+# install.packages("openxlsx")
 library(openxlsx)
-dat <- read.xlsx("path/to/xlsx/file.xlsx")
+dat <- read.xlsx("path/to/xlsx/file.xlsx", sheet=1)
+# use / instead of \ to represent the file path
 
 ## read Stata 5-12 data
 library(foreign)
