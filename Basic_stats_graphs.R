@@ -7,6 +7,10 @@ barplot(table(Prestige$type), main="Bar Plot",
         col=c("blue", "red", "green"))
 box()
 
+library(ggplot2)
+ggplot(Prestige, aes(type)) + geom_bar()
+ggplot(Prestige, aes(type)) + geom_bar(fill=rainbow(4), color="black")
+
 ## histogram
 hist(Prestige$income)
 
@@ -80,11 +84,16 @@ Boxplot(income ~ type, data=Prestige, main="Comparison of Income")
 Boxplot(interlocks~nation,Ornstein)
 
 ## barplot of frequency
-data(TitanicSurvival,package="effects")
+data(TitanicSurvival,package="carData")
 barplot(with(TitanicSurvival,table(survived,passengerClass)),beside=TRUE,legend=TRUE, xlab="Class", ylab="Frequency")
 box()
 
-## scatter plot
+library(ggplot2)
+ggplot(TitanicSurvival, aes(survived)) + 
+  geom_bar(aes(fill= passengerClass), position = position_dodge())
+
+
+# scatter plot
 with(Vocab, plot(vocabulary, education))
 plot(Vocab$vocabulary, Vocab$education)
 

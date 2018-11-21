@@ -1,6 +1,6 @@
 library(car)
 
-load("HuangGui2014-SOCI620004.RData")
+load("data/HuangGui2014-SOCI620004.RData")
 
 ## Visualize the data before modelling
 scatterplot(nforward~fans, data=wb)

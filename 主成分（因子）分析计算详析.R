@@ -3,11 +3,11 @@ bg2 <- read.dta("http://www.stata-press.com/data/r12/bg2.dta")
 
 R = cor(bg2[, 2:4])
 
-## 特征值分解
+# 特征值分解
 r = eigen(R)
 
-## R V = lambda V
-## demonstrate with the first eigen value
+# R V = lambda V
+# demonstrate using the first eigen value
 R %*% r$vectors[,1, drop=FALSE]
 r$values[1] * r$vectors[,1, drop=FALSE]
 
@@ -20,30 +20,31 @@ r$values[3] * r$vectors[,3, drop=FALSE]
 R %*% r$vectors 
 r$vectors %*% diag(r$values)
 
-### 通过eigen进行主成分分析
+
+# 通过eigen进行主成分分析
 pc = princomp(bg2[, 2:4])
 summary(pc)
 pcscores = predict(pc)
 head( pcscores )
 
-## 成分方差
+# 成分方差
 round(cov(pcscores), 3)
 
 sum(r$values)
 r$values / sum(r$values)
 
-## 手工计算主成分得分
+# 手工计算主成分得分
 head( as.matrix(bg2[, 2:4]) %*% r$vectors )
 
-## 仅计算第一成分得分
+# 仅计算第一成分得分
 # head( as.matrix(bg2[, 2:4]) %*% r$vectors[, 1, drop=FALSE] )
 
-##### factor loading from prcomp (p.98)
-## cov(f, f) = lambda
-## cov(f, x) = lambda *v
-## cor(f, x) = cov(f, x) / sqrt(sigma^2_f) = lambda * sqrt(v)
+# factor loading from prcomp (p.98)
+# cov(f, f) = lambda
+# cov(f, x) = lambda *v
+# cor(f, x) = cov(f, x) / sqrt(sigma^2_f) = lambda * sqrt(v)
 
-## demon cor
+# demon cor
 cor(pcscores[, 1], bg2[, 2])
 r$vectors[1, 1] * sqrt(r$values[1])
 

@@ -80,7 +80,7 @@ coeftest(m, vcov=hccm(m))
 Vocab <- subset(Vocab, year==1989)
 m1 <- lm(vocabulary ~ education, data=Vocab)
 m2 <- lm(vocabulary ~ factor(education), data=Vocab)
-anova(m1,m2)
+anova(m1, m2)
 
 
 vif(m)
