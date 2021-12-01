@@ -2,3 +2,25 @@
 .Rhistory
 
 math/.ipynb_checkpoints/数学学习资料-checkpoint.ipynb
+
+*.dta
+
+*.doc
+
+*.html
+
+*.t
+
+*.Rdata
+
+*.RData
+
+*.xlsx
+
+*.docx
+
+*/.ipynb_checkpoints/*
+
+mediation/.ipynb_checkpoints/Mediation_analysis-checkpoint.ipynb
+
+*.pdf
